@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xinecraft · World manager</title>
+  <link rel="stylesheet" href="/dashboard.css">
+  <script src="/dashboard.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Xinecraft home"><span class="brand-mark" aria-hidden="true">▦</span> XINECRAFT <span class="brand-sub">WORLD MANAGER</span></a>
+    <span class="connection" id="connection"><span class="status-dot"></span> Connecting</span>
+  </header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">YOUR WORLD, FROM HERE</p><h1>A little world.<br>A place for everything.</h1><p class="subtitle">Inspect your blocks. Create entities. Make the world your own.</p></div>
+      <div class="world-stamp"><span class="status-dot"></span><span id="world-name">Loading world…</span><small>OVERWORLD · SINGLE PLAYER</small></div>
+    </section>
+    <section class="overview" aria-label="World overview">
+      <div><span class="stat-label">BLOCKS</span><strong id="block-total">—</strong><span>non-air blocks</span></div>
+      <div><span class="stat-label">ENTITIES</span><strong id="entity-total">—</strong><span>of 64 available</span></div>
+      <div><span class="stat-label">TEST AREA</span><strong>16 × 16 × 16</strong><span>blocks in the Overworld</span></div>
+      <div><span class="stat-label">WORLD REVISION</span><strong id="revision">—</strong><span>managed by this server</span></div>
+    </section>
+    <div class="workspace-heading"><h2>World contents</h2><button id="refresh" class="button subtle" type="button">↻ Refresh</button></div>
+    <p id="notice" class="notice" role="status" aria-live="polite" hidden></p>
+    <div class="workspace">
+      <section class="panel blocks-panel" aria-labelledby="blocks-heading">
+        <div class="panel-heading"><div><span class="panel-number">01 / TERRAIN</span><h2 id="blocks-heading">Blocks <span class="badge" id="blocks-count">0</span></h2></div><span class="small-tag">READ ONLY</span></div>
+        <p class="panel-description">The first 20 above-ground blocks, ordered by X, Y, Z. Y = 1 is just above the Superflat ground.</p>
+        <div class="block-scroll" tabindex="0" aria-label="First 20 blocks">
+          <table><thead><tr><th scope="col">BLOCK</th><th scope="col">X</th><th scope="col">Y</th><th scope="col">Z</th></tr></thead><tbody id="block-rows"></tbody></table>
+          <p id="blocks-empty" class="empty-small">Loading blocks…</p>
+        </div>
+        <p class="panel-footer" id="block-summary">Waiting for world state</p>
+      </section>
+      <section class="panel entities-panel" aria-labelledby="entities-heading">
+        <div class="panel-heading"><div><span class="panel-number">02 / INHABITANTS</span><h2 id="entities-heading">Entities <span class="badge" id="entities-count">0</span></h2></div><button id="new-entity" class="button primary compact" type="button" disabled>+ New entity</button></div>
+        <p class="panel-description">Select an entity to inspect and edit its attributes.</p>
+        <div id="entity-list" class="entity-list" role="group" aria-label="Entities" tabindex="0"></div>
+        <div id="entities-empty" class="empty-state"><span class="empty-mark" aria-hidden="true">◇</span><h3>No inhabitants yet</h3><p>Create your first entity to<br>bring this area to life.</p></div>
+        <p class="panel-footer">Static entities · No autonomous simulation</p>
+      </section>
+      <section class="panel inspector-panel" aria-labelledby="inspector-heading">
+        <div class="panel-heading"><div><span class="panel-number">03 / ATTRIBUTES</span><h2 id="inspector-heading">Entity inspector</h2></div><span id="draft-badge" class="small-tag" hidden>UNSAVED</span></div>
+        <div id="inspector-empty" class="empty-state inspector-empty"><span class="empty-mark" aria-hidden="true">⌖</span><h3>Everything has its place</h3><p>Select an entity from the list,<br>or create something new.</p></div>
+        <form id="entity-form" hidden>
+          <div class="entity-identity"><span class="pig-mark" aria-hidden="true">▣</span><div><h3 id="entity-title">Pig</h3><span class="muted">minecraft:pig</span></div><span class="small-tag">STATIC</span></div>
+          <label class="field-label" for="entity-id">ENTITY ID <span>Read only</span></label><input id="entity-id" class="identity-input" readonly value="Assigned when created">
+          <fieldset><legend>Position <span>blocks</span></legend><div class="field-grid three">
+            <label>X<input id="position-x" name="x" type="number" min="1" max="15" step="any" required><small>1 to 15</small></label>
+            <label>Y<input id="position-y" name="y" type="number" min="1" max="15" step="any" required><small>1 to 15</small></label>
+            <label>Z<input id="position-z" name="z" type="number" min="1" max="15" step="any" required><small>1 to 15</small></label>
+          </div></fieldset>
+          <fieldset><legend>Rotation <span>degrees</span></legend><div class="field-grid two">
+            <label>Yaw<input id="rotation-yaw" name="yaw" type="number" min="0" max="359.99999999999994" step="any" required><small>0 up to 360°</small></label>
+            <label>Pitch<input id="rotation-pitch" name="pitch" type="number" min="-90" max="90" step="any" required><small>−90 to 90°</small></label>
+          </div></fieldset>
+          <p class="form-note">Y = 1 places an entity on the Superflat ground. Position and rotation can be edited. Identity and entity type stay fixed.</p>
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+          <div class="form-actions"><button id="save-entity" type="submit" class="button primary">Save changes</button><button id="discard" type="button" class="button subtle">Discard</button></div>
+        </form>
+      </section>
+    </div>
+    <footer><span id="storage-note">In-memory preview · State resets when this process restarts.</span><span>Single-player worlds. One source of truth.</span></footer>
+  </main>
+</body>
+</html>
