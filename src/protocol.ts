@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { blockPositionSchema, entitySchema, identifierSchema, revisionSchema } from './model.js';
+import { blockPositionSchema, entitySchema, identifierSchema, revisionSchema, storedBlockTypeSchema } from './model.js';
 
 export const operationSchema = z.discriminatedUnion('op', [
   z.strictObject({ op: z.literal('SET_BLOCK'), position: blockPositionSchema,
-    block: z.enum(['minecraft:air', 'minecraft:stone', 'minecraft:dirt', 'minecraft:glass']) }),
+    block: z.union([z.literal('minecraft:air'), storedBlockTypeSchema]) }),
   z.strictObject({ op: z.literal('PUT_ENTITY'), entity: entitySchema }),
   z.strictObject({ op: z.literal('REMOVE_ENTITY'), id: entitySchema.shape.id }),
 ]);

@@ -6,7 +6,7 @@ import type { TestContext } from 'node:test';
 import type WebSocket from 'ws';
 import { buildApp } from '../src/app.js';
 import type { AppOptions } from '../src/app.js';
-import { createWorld, stateSchema } from '../src/model.js';
+import { createWorld, loadInitialWorld, stateSchema } from '../src/model.js';
 import { MemoryPersistence } from '../src/persistence.js';
 import { parseModMessage } from '../src/protocol.js';
 
@@ -64,6 +64,22 @@ test('bootstrap owns only empty space above the shared ground, with independent 
   assert.equal(restored.state.blocks.length, 1);
   restored.state.blocks.length = 0;
   assert.equal((await store.load('demo') as typeof world).state.blocks.length, 1);
+});
+
+test('initial world file loads corner obsidian markers and oak trees', async () => {
+  const world = await loadInitialWorld('demo');
+  assert.equal(world.revision, 0);
+  const obsidian = world.state.blocks.filter(b => b.block === 'minecraft:obsidian');
+  const logs = world.state.blocks.filter(b => b.block === 'minecraft:oak_log');
+  const leaves = world.state.blocks.filter(b => b.block === 'minecraft:oak_leaves');
+  assert.equal(obsidian.length, 12);
+  for (const [x, z] of [[0, 0], [0, 15], [15, 0], [15, 15]] as const) {
+    for (const y of [1, 2, 3]) {
+      assert.ok(obsidian.some(b => b.position.x === x && b.position.y === y && b.position.z === z));
+    }
+  }
+  assert.ok(logs.length >= 8);
+  assert.ok(leaves.length >= 20);
 });
 
 test('state rejects unsupported content, scope changes, duplicate identities, and local extra data', () => {

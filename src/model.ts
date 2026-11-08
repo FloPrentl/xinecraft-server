@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
 import { z } from 'zod';
 
 export const MAX_MESSAGE_BYTES = 1024 * 1024;
@@ -10,9 +11,17 @@ export const blockPositionSchema = z.strictObject({
   y: z.number().int().min(1).max(16),
   z: z.number().int().min(0).max(15),
 });
+export const storedBlockTypeSchema = z.enum([
+  'minecraft:stone',
+  'minecraft:dirt',
+  'minecraft:glass',
+  'minecraft:obsidian',
+  'minecraft:oak_log',
+  'minecraft:oak_leaves',
+]);
 const blockSchema = z.strictObject({
   position: blockPositionSchema,
-  block: z.enum(['minecraft:stone', 'minecraft:dirt', 'minecraft:glass']),
+  block: storedBlockTypeSchema,
 });
 export const entitySchema = z.strictObject({
   id: uuidSchema,
@@ -63,7 +72,15 @@ export const worldSchema = z.strictObject({
 export type World = z.infer<typeof worldSchema>;
 export type Entity = z.infer<typeof entitySchema>;
 
-export function createWorld(worldId: string): World {
+export const initialSeedSchema = z.strictObject({
+  blocks: z.array(blockSchema).max(4096),
+  entities: z.array(entitySchema).max(64).default([]),
+});
+export type InitialSeed = z.infer<typeof initialSeedSchema>;
+
+export const DEFAULT_INITIAL_WORLD_URL = new URL('../../data/initial-world.json', import.meta.url);
+
+export function createWorld(worldId: string, seed?: InitialSeed): World {
   return worldSchema.parse({
     worldId,
     epoch: randomUUID(),
@@ -78,10 +95,16 @@ export function createWorld(worldId: string): World {
         max: { x: 15, y: 16, z: 15 },
       },
       defaultBlock: 'minecraft:air',
-      blocks: [],
-      entities: [],
+      blocks: seed?.blocks ?? [],
+      entities: seed?.entities ?? [],
       environment: { timeOfDay: 6000, weather: 'clear' },
       viewer: { mode: 'spectator', spawn: { x: 8, y: 6, z: 8 } },
     },
   });
+}
+
+export async function loadInitialWorld(worldId: string, source: string | URL = DEFAULT_INITIAL_WORLD_URL): Promise<World> {
+  const raw = JSON.parse(await readFile(source, 'utf8')) as unknown;
+  const seed = initialSeedSchema.parse(raw);
+  return createWorld(worldId, seed);
 }

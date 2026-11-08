@@ -1,12 +1,20 @@
 import { buildApp } from './app.js';
+import { DEFAULT_INITIAL_WORLD_URL, identifierSchema, loadInitialWorld } from './model.js';
+import { MemoryPersistence } from './persistence.js';
 
 const port = Number(process.env.PORT ?? 3000);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
   throw new Error('PORT must be an integer from 1 to 65535');
 }
+const worldId = identifierSchema.parse(process.env.WORLD_ID ?? 'demo');
+const initialWorldSource = process.env.INITIAL_WORLD_FILE ?? DEFAULT_INITIAL_WORLD_URL;
+const persistence = new MemoryPersistence();
+await persistence.save(await loadInitialWorld(worldId, initialWorldSource));
+
 const replicationToken = process.env.REPLICATION_TOKEN;
 const app = await buildApp({
-  worldId: process.env.WORLD_ID ?? 'demo',
+  worldId,
+  persistence,
   logger: true,
   ...(replicationToken === undefined ? {} : { replicationToken }),
 });

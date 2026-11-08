@@ -1,0 +1,56 @@
+{
+  "blocks": [
+    { "position": { "x": 0, "y": 1, "z": 0 }, "block": "minecraft:obsidian" },
+    { "position": { "x": 0, "y": 2, "z": 0 }, "block": "minecraft:obsidian" },
+    { "position": { "x": 0, "y": 3, "z": 0 }, "block": "minecraft:obsidian" },
+
+    { "position": { "x": 0, "y": 1, "z": 15 }, "block": "minecraft:obsidian" },
+    { "position": { "x": 0, "y": 2, "z": 15 }, "block": "minecraft:obsidian" },
+    { "position": { "x": 0, "y": 3, "z": 15 }, "block": "minecraft:obsidian" },
+
+    { "position": { "x": 15, "y": 1, "z": 0 }, "block": "minecraft:obsidian" },
+    { "position": { "x": 15, "y": 2, "z": 0 }, "block": "minecraft:obsidian" },
+    { "position": { "x": 15, "y": 3, "z": 0 }, "block": "minecraft:obsidian" },
+
+    { "position": { "x": 15, "y": 1, "z": 15 }, "block": "minecraft:obsidian" },
+    { "position": { "x": 15, "y": 2, "z": 15 }, "block": "minecraft:obsidian" },
+    { "position": { "x": 15, "y": 3, "z": 15 }, "block": "minecraft:obsidian" },
+
+    { "position": { "x": 4, "y": 1, "z": 4 }, "block": "minecraft:oak_log" },
+    { "position": { "x": 4, "y": 2, "z": 4 }, "block": "minecraft:oak_log" },
+    { "position": { "x": 4, "y": 3, "z": 4 }, "block": "minecraft:oak_log" },
+    { "position": { "x": 4, "y": 4, "z": 4 }, "block": "minecraft:oak_log" },
+    { "position": { "x": 3, "y": 4, "z": 3 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 3, "y": 4, "z": 4 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 3, "y": 4, "z": 5 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 4, "y": 4, "z": 3 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 4, "y": 4, "z": 5 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 5, "y": 4, "z": 3 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 5, "y": 4, "z": 4 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 5, "y": 4, "z": 5 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 3, "y": 5, "z": 4 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 4, "y": 5, "z": 3 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 4, "y": 5, "z": 4 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 4, "y": 5, "z": 5 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 5, "y": 5, "z": 4 }, "block": "minecraft:oak_leaves" },
+
+    { "position": { "x": 11, "y": 1, "z": 11 }, "block": "minecraft:oak_log" },
+    { "position": { "x": 11, "y": 2, "z": 11 }, "block": "minecraft:oak_log" },
+    { "position": { "x": 11, "y": 3, "z": 11 }, "block": "minecraft:oak_log" },
+    { "position": { "x": 11, "y": 4, "z": 11 }, "block": "minecraft:oak_log" },
+    { "position": { "x": 10, "y": 4, "z": 10 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 10, "y": 4, "z": 11 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 10, "y": 4, "z": 12 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 11, "y": 4, "z": 10 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 11, "y": 4, "z": 12 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 12, "y": 4, "z": 10 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 12, "y": 4, "z": 11 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 12, "y": 4, "z": 12 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 10, "y": 5, "z": 11 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 11, "y": 5, "z": 10 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 11, "y": 5, "z": 11 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 11, "y": 5, "z": 12 }, "block": "minecraft:oak_leaves" },
+    { "position": { "x": 12, "y": 5, "z": 11 }, "block": "minecraft:oak_leaves" }
+  ],
+  "entities": []
+}
